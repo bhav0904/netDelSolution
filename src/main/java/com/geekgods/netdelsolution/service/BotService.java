@@ -116,7 +116,7 @@ public class BotService {
         return lawyerData;
     }
 
-    public String getLocation() {
+    public static String getLocation() {
         System.setProperty("webdriver.chrome.driver", "/Users/gauravkhurana/Downloads/chromedriver 2");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
