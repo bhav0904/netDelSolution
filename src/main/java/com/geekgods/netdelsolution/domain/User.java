@@ -54,6 +54,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(length = 100, unique = true)
     private String email;
 
+    @Column(name = "address")
+    private String address;
+
     @NotNull
     @Column(nullable = false)
     private boolean activated = false;
@@ -202,6 +205,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setPersistentTokens(Set<PersistentToken> persistentTokens) {
         this.persistentTokens = persistentTokens;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
