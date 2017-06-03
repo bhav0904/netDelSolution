@@ -116,8 +116,26 @@ public class BotService {
         return lawyerData;
     }
 
-    public static void main(String[] args) {
+    public String getLocation() {
+        System.setProperty("webdriver.chrome.driver", "/Users/gauravkhurana/Downloads/chromedriver 2");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.get("https://www.google.com");
+        driver.findElement(By.id("lst-ib")).sendKeys("My location");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String location = driver.findElement(By.cssSelector(".vk_sh.vk_bk")).getText();
+        driver.quit();
+        return location;
+    }
+
+
+        public static void main(String[] args) {
         BotService botService = new BotService();
-        botService.getLawyers("new york");
+        System.out.println(botService.getLocation());
+//        botService.getLawyers("new york");
     }
 }
