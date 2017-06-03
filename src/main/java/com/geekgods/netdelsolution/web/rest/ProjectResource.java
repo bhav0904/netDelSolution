@@ -7,6 +7,7 @@ import com.geekgods.netdelsolution.domain.User;
 import com.geekgods.netdelsolution.domain.UserIssue;
 import com.geekgods.netdelsolution.repository.ProjectRepository;
 import com.geekgods.netdelsolution.repository.UserRepository;
+import com.geekgods.netdelsolution.service.BotService;
 import com.geekgods.netdelsolution.service.dto.ProjectDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -57,5 +58,11 @@ public class ProjectResource {
                 project.getProjectDescription())).filter(projectDTO -> issuesUserIsInterestedIn.contains(projectDTO.getIssue())).collect(Collectors.toList());
 
         return ResponseEntity.ok(projects);
+    }
+
+    @GetMapping("/location")
+    @Timed
+    public ResponseEntity<String> getLocation() {
+        return ResponseEntity.ok(BotService.getLocation());
     }
 }

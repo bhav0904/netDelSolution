@@ -64,8 +64,8 @@ public class BotService {
     }
 
 
-    public static List<Map<String,String>> getLawyers(String city) {
-        System.setProperty("webdriver.chrome.driver", "/Users/bhavanahindupur/Downloads/chromedriver");
+    public List<Map<String,String>> getLawyers(String city) {
+        System.setProperty("webdriver.chrome.driver", "/Users/gauravkhurana/Downloads/chromedriver 2");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS) ;
         driver.get("https://www.avvo.com/search/lawyer_search?utf8=%E2%9C%93&q=General%20Practice&loc=" + city + "&sort=relevancy&free_consultation=1");
@@ -116,7 +116,6 @@ public class BotService {
         return lawyerData;
     }
 
-    //TODO remove this method, was added for local testing
     public static void main(String[] args) {
         BotService botService = new BotService();
         botService.getLawyers("new york");
