@@ -61,9 +61,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "radius")
     private Long radius;
 
-    private List<Issue> issues;
+    @OneToMany(mappedBy = "user")
+    private Set<Issue> issues;
 
-    private List<Project> projects;
+    private Set<Project> projects;
 
     @NotNull
     @Column(nullable = false)
@@ -223,9 +224,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.address = address;
     }
 
-    public List<Issue> getIssues() {return issues; }
+    public Set<Issue> getIssues() {return issues; }
 
-    public void setIssues(List<Issue> issues) { this.issues = issues; }
+    public void setIssues(Set<Issue> issues) { this.issues = issues; }
 
 
     @Override
@@ -269,11 +270,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.radius = radius;
     }
 
-    public List<Project> getProjects() {
+    public Set<Project> getProjects() {
         return projects;
     }
 
-    public void setProjects(List<Project> projects) {
+    public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
 }
