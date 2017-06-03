@@ -54,7 +54,15 @@ Version number in navbar
     font-size: 10px;
     color: #ccc
 }
-
+.navbar-netde{
+    background-color:#588c9f;
+}
+.navbar-default .navbar-nav > .active > a{
+    background:#fcb643;
+}
+.navbar-default .navbar-nav > li > a{
+    color:#FFE493;
+}
 /* ==========================================================================
 Browser Upgrade Prompt
 ========================================================================== */
