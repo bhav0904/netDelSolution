@@ -2,6 +2,7 @@ package com.geekgods.netdelsolution.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,14 +13,17 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "project")
-    private Set<ProjectIssue> issues;
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private Set<ProjectIssue> issues = new HashSet<>();
 
     @Column(name = "date")
     private Date date;
 
     @Column(name = "projectName")
     private String projectName;
+
+    @Column(name = "projectDescription")
+    private String projectDescription;
 
     @Column(name = "projectAddress")
     private String projectAddress;
@@ -75,4 +79,11 @@ public class Project {
         this.volunteers = volunteers;
     }
 
+    public String getProjectDescription() {
+        return projectDescription;
+    }
+
+    public void setProjectDescription(String projectDescription) {
+        this.projectDescription = projectDescription;
+    }
 }
