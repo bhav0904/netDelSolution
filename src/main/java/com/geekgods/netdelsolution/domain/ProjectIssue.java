@@ -3,15 +3,15 @@ package com.geekgods.netdelsolution.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_issue")
-public class UserIssue {
+@Table(name = "project_issue")
+public class ProjectIssue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "project_id")
+    private Project project;
 
     @Column(name = "issue")
     private String issue;
@@ -24,12 +24,12 @@ public class UserIssue {
         this.issue = issue;
     }
 
-    public User getUser() {
-        return user;
+    public Project getProject() {
+        return project;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public Long getId() { return id; }
