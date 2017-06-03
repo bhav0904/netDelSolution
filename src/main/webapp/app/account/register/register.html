@@ -82,15 +82,15 @@
                 </div>
                 <div class="typeahead-demo">
 
-                    <h4>What are you interested in</h4>
-                    <ul class="pager">
-                        <li><a href="#">topic one <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
-                        <li><a href="#">topic one <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
+                    <h4>What issues are you interested in</h4>
+                    <!--<ul class="pager">-->
+                        <!--<li><a>topic one <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>-->
+                        <!--<li><a>topic one <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>-->
 
-                    </ul>
+                    <!--</ul>-->
 
                     <div class="form-group">
-                        <input type="text" ng-model="selected"
+                        <input type="text" ng-model="vm.registerAccount.issue"
                                uib-typeahead="issue for issue in vm.issues" class="form-control" placeholder="type your interests here">
                     </div>
 

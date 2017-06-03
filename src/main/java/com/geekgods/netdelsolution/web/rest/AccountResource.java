@@ -79,6 +79,7 @@ public class AccountResource {
                             managedUserVM.getFirstName(), managedUserVM.getLastName(),
                             managedUserVM.getEmail().toLowerCase(), managedUserVM.getAddress(),
                                 managedUserVM.getRadius(),
+                                managedUserVM.getIssue(),
                                 managedUserVM.getImageUrl(),
                             managedUserVM.getLangKey());
 

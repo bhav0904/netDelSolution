@@ -2,6 +2,7 @@ package com.geekgods.netdelsolution.service;
 
 import com.geekgods.netdelsolution.domain.Authority;
 import com.geekgods.netdelsolution.domain.User;
+import com.geekgods.netdelsolution.domain.UserIssue;
 import com.geekgods.netdelsolution.repository.AuthorityRepository;
 import com.geekgods.netdelsolution.repository.PersistentTokenRepository;
 import com.geekgods.netdelsolution.config.Constants;
@@ -86,7 +87,7 @@ public class UserService {
     }
 
     public User createUser(String login, String password, String firstName, String lastName, String email, String address,
-                           Long radius,
+                           Long radius, String issue,
         String imageUrl, String langKey) {
 
         //TODO hack: to be removed
@@ -113,6 +114,12 @@ public class UserService {
         newUser.setEmail(email);
         newUser.setAddress(address);
         newUser.setRadius(radius);
+        UserIssue userIssue = new UserIssue();
+        userIssue.setIssue(issue);
+        userIssue.setUser(newUser);
+        newUser.getIssues().add(userIssue);
+
+
         newUser.setImageUrl(imageUrl);
         newUser.setLangKey(langKey);
         // new user is not active

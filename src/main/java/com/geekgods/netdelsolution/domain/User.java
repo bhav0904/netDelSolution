@@ -11,10 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 import java.time.Instant;
 
 /**
@@ -61,8 +58,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "radius")
     private Long radius;
 
-    @OneToMany(mappedBy = "user")
-    private List<UserIssue> issues;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserIssue> issues = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_project",

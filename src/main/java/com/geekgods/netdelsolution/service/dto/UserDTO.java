@@ -22,6 +22,8 @@ public class UserDTO {
 
     private Long radius;
 
+    private String issue;
+
     @NotBlank
     @Pattern(regexp = Constants.LOGIN_REGEX)
     @Size(min = 1, max = 50)
@@ -185,5 +187,13 @@ public class UserDTO {
 
     public void setRadius(Long radius) {
         this.radius = radius;
+    }
+
+    public String getIssue() {
+        return issue;
+    }
+
+    public void setIssue(String issue) {
+        this.issue = issue;
     }
 }
