@@ -85,8 +85,19 @@ public class UserService {
             });
     }
 
-    public User createUser(String login, String password, String firstName, String lastName, String email,
+    public User createUser(String login, String password, String firstName, String lastName, String email, String address,
         String imageUrl, String langKey) {
+
+        //TODO hack: to be removed
+        if (authorityRepository.findAll().isEmpty()) {
+            Authority authority = new Authority();
+            authority.setName("ROLE_USER");
+            authorityRepository.save(authority);
+
+            Authority authority2 = new Authority();
+            authority2.setName("ROLE_ADMIN");
+            authorityRepository.save(authority2);
+        }
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
@@ -98,10 +109,12 @@ public class UserService {
         newUser.setFirstName(firstName);
         newUser.setLastName(lastName);
         newUser.setEmail(email);
+        newUser.setAddress(address);
         newUser.setImageUrl(imageUrl);
         newUser.setLangKey(langKey);
         // new user is not active
-        newUser.setActivated(false);
+        //TODO hack: to be removed
+        newUser.setActivated(true);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);

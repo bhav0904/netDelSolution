@@ -43,6 +43,8 @@ public class UserDTO {
     @Size(min = 2, max = 5)
     private String langKey;
 
+    private String address;
+
     private String createdBy;
 
     private Instant createdDate;
@@ -165,5 +167,13 @@ public class UserDTO {
             ", lastModifiedDate=" + lastModifiedDate +
             ", authorities=" + authorities +
             "}";
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

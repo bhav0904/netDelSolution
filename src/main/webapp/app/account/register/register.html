@@ -76,11 +76,11 @@
                     <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                     <div class="input-group">
                         <div class="input-group-addon"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></div>
-                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="Address">
+                        <input type="text" class="form-control" id="exampleInputAmount" ng-model="vm.registerAccount.address" placeholder="Address">
 
                     </div>
                 </div>
-                <div class=' typeahead-demo' ng-controller="TypeaheadCtrl">
+                <div class="typeahead-demo">
 
                     <h4>What are you interested in</h4>
                     <ul class="pager">
