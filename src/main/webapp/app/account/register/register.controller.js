@@ -19,6 +19,8 @@
         vm.registerAccount = {};
         vm.success = null;
 
+        //TODO: hardcoded to be removed
+        vm.issues = ["Gun Safety", "Child Rights", "Marijuiana Reform"];
         $timeout(function (){angular.element('#login').focus();});
 
         function register () {

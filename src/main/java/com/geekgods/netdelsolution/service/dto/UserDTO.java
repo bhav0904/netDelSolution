@@ -20,6 +20,10 @@ public class UserDTO {
 
     private Long id;
 
+    private Long radius;
+
+    private String issue;
+
     @NotBlank
     @Pattern(regexp = Constants.LOGIN_REGEX)
     @Size(min = 1, max = 50)
@@ -42,6 +46,8 @@ public class UserDTO {
 
     @Size(min = 2, max = 5)
     private String langKey;
+
+    private String address;
 
     private String createdBy;
 
@@ -165,5 +171,29 @@ public class UserDTO {
             ", lastModifiedDate=" + lastModifiedDate +
             ", authorities=" + authorities +
             "}";
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Long getRadius() {
+        return radius;
+    }
+
+    public void setRadius(Long radius) {
+        this.radius = radius;
+    }
+
+    public String getIssue() {
+        return issue;
+    }
+
+    public void setIssue(String issue) {
+        this.issue = issue;
     }
 }

@@ -1,20 +1,19 @@
 package com.geekgods.netdelsolution.domain;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "user_project")
 public class UserProject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "userID")
+    @Column(name = "user_id")
     private Long userID;
 
-    @Column(name = "projectID")
+    @Column(name = "project_id")
     private Long projectID;
 
 

@@ -1,18 +1,20 @@
 package com.geekgods.netdelsolution.domain;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@Entity
+@Table(name = "project")
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private List<Issue> issues;
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private Set<ProjectIssue> issues = new HashSet<>();
 
     @Column(name = "date")
     private Date date;
@@ -20,10 +22,14 @@ public class Project {
     @Column(name = "projectName")
     private String projectName;
 
+    @Column(name = "projectDescription")
+    private String projectDescription;
+
     @Column(name = "projectAddress")
     private String projectAddress;
 
-    private List<User> volunteers;
+    @ManyToMany(mappedBy="projects")
+    private Set<User> volunteers;
 
     public Long getId() {
         return id;
@@ -33,11 +39,11 @@ public class Project {
         this.id = id;
     }
 
-    public List<Issue> getIssues() {
+    public Set<ProjectIssue> getIssues() {
         return issues;
     }
 
-    public void setIssues(List<Issue> issues) {
+    public void setIssues(Set<ProjectIssue> issues) {
         this.issues = issues;
     }
 
@@ -65,12 +71,19 @@ public class Project {
         this.projectAddress = projectAddress;
     }
 
-    public List<User> getVolunteers() {
+    public Set<User> getVolunteers() {
         return volunteers;
     }
 
-    public void setVolunteers(List<User> volunteers) {
+    public void setVolunteers(Set<User> volunteers) {
         this.volunteers = volunteers;
     }
 
+    public String getProjectDescription() {
+        return projectDescription;
+    }
+
+    public void setProjectDescription(String projectDescription) {
+        this.projectDescription = projectDescription;
+    }
 }

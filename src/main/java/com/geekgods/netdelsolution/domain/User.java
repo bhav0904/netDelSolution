@@ -11,10 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 import java.time.Instant;
 
 /**
@@ -61,10 +58,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "radius")
     private Long radius;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Issue> issues;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserIssue> issues = new ArrayList<>();
 
-    private Set<Project> projects;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_project",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "project_id") })
+    private List<Project> projects;
 
     @NotNull
     @Column(nullable = false)
@@ -224,9 +225,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.address = address;
     }
 
-    public Set<Issue> getIssues() {return issues; }
+    public List<UserIssue> getIssues() {return issues; }
 
-    public void setIssues(Set<Issue> issues) { this.issues = issues; }
+    public void setIssues(List<UserIssue> issues) { this.issues = issues; }
 
 
     @Override
@@ -270,11 +271,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.radius = radius;
     }
 
-    public Set<Project> getProjects() {
+    public List<Project> getProjects() {
         return projects;
     }
 
-    public void setProjects(Set<Project> projects) {
+    public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
 }

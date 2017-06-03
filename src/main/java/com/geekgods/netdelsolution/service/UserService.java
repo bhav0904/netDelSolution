@@ -2,6 +2,7 @@ package com.geekgods.netdelsolution.service;
 
 import com.geekgods.netdelsolution.domain.Authority;
 import com.geekgods.netdelsolution.domain.User;
+import com.geekgods.netdelsolution.domain.UserIssue;
 import com.geekgods.netdelsolution.repository.AuthorityRepository;
 import com.geekgods.netdelsolution.repository.PersistentTokenRepository;
 import com.geekgods.netdelsolution.config.Constants;
@@ -85,11 +86,24 @@ public class UserService {
             });
     }
 
-    public User createUser(String login, String password, String firstName, String lastName, String email,
+    public User createUser(String login, String password, String firstName, String lastName, String email, String address,
+                           Long radius, String issue,
         String imageUrl, String langKey) {
+
+        //TODO hack: to be removed
+        if (authorityRepository.findAll().isEmpty()) {
+            Authority authority = new Authority();
+            authority.setName("ROLE_USER");
+            authorityRepository.save(authority);
+
+            Authority authority2 = new Authority();
+            authority2.setName("ROLE_ADMIN");
+            authorityRepository.save(authority2);
+        }
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
+        Authority authority2 = authorityRepository.findOne(AuthoritiesConstants.ADMIN);
         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(login);
@@ -98,13 +112,23 @@ public class UserService {
         newUser.setFirstName(firstName);
         newUser.setLastName(lastName);
         newUser.setEmail(email);
+        newUser.setAddress(address);
+        newUser.setRadius(radius);
+        UserIssue userIssue = new UserIssue();
+        userIssue.setIssue(issue);
+        userIssue.setUser(newUser);
+        newUser.getIssues().add(userIssue);
+
+
         newUser.setImageUrl(imageUrl);
         newUser.setLangKey(langKey);
         // new user is not active
-        newUser.setActivated(false);
+        //TODO hack: to be removed
+        newUser.setActivated(true);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);
+        authorities.add(authority2);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);

@@ -1,0 +1,26 @@
+<div ng-cloak>
+    <div class="row">
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">subject</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="subject">
+            </div>
+            <h4>Associated Categories</h4>
+            <!--<ul class="pager">-->
+            <!--<li><a>topic one <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>-->
+            <!--<li><a>topic one <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>-->
+
+            <!--</ul>-->
+
+            <div class="form-group">
+                <input type="text" ng-model="vm.registerAccount.issue"
+                       uib-typeahead="issue for issue in vm.issues" class="form-control" placeholder="type your interests here">
+            </div>
+            <div class="form-group">
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+</div>
