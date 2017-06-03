@@ -90,7 +90,8 @@
                     </ul>
 
                     <div class="form-group">
-                        <input type="text" ng-model="selected" uib-typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control" placeholder="type your interests here">
+                        <input type="text" ng-model="selected"
+                               uib-typeahead="issue for issue in vm.issues" class="form-control" placeholder="type your interests here">
                     </div>
 
                 </div>
@@ -98,7 +99,8 @@
                     <div id="account-alert-radius" class="radiusPicker">
 
                         <span id="radiusCopy">
-                        We'll notify you about community events within <select class="radius inline" id="alertradius">
+                        We'll notify you about community events within <select class="radius inline" id="alertradius"
+                        ng-model="vm.registerAccount.radius">
                         <option selected value="2" >
                         2 mi
                         </option>
