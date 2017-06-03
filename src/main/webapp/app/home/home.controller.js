@@ -5,10 +5,21 @@
         .module('netdelsolutionApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http'];
 
-    function HomeController ($scope, Principal, LoginService, $state) {
+    function HomeController ($scope, Principal, LoginService, $state, $http) {
         var vm = this;
+        var login;
+
+        Principal.identity().then(function(account) {
+                    login = account.login;
+                    $http.get("/api/projects?login=" + login).then(function (response) {
+                        vm.projects = response.data;
+                    });
+        });
+
+
+
 
         vm.account = null;
         vm.isAuthenticated = null;
