@@ -12,6 +12,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.time.Instant;
@@ -56,6 +57,13 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "address")
     private String address;
+
+    @Column(name = "radius")
+    private Long radius;
+
+    private List<Issue> issues;
+
+    private List<Project> projects;
 
     @NotNull
     @Column(nullable = false)
@@ -215,6 +223,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.address = address;
     }
 
+    public List<Issue> getIssues() {return issues; }
+
+    public void setIssues(List<Issue> issues) { this.issues = issues; }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -246,5 +259,21 @@ public class User extends AbstractAuditingEntity implements Serializable {
             ", langKey='" + langKey + '\'' +
             ", activationKey='" + activationKey + '\'' +
             "}";
+    }
+
+    public Long getRadius() {
+        return radius;
+    }
+
+    public void setRadius(Long radius) {
+        this.radius = radius;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 }
