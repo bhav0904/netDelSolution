@@ -1,6 +1,5 @@
 package com.geekgods.netdelsolution.service;
 
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -9,8 +8,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class BotService {
@@ -60,5 +61,63 @@ public class BotService {
         }
         driver.quit();
         return listOfMap;
+    }
+
+
+    public List<Map<String,String>> getLawyers(String city) {
+        System.setProperty("webdriver.chrome.driver", "/Users/gauravkhurana/Downloads/chromedriver 2");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS) ;
+        driver.get("https://www.avvo.com/search/lawyer_search?utf8=%E2%9C%93&q=General%20Practice&loc=" + city + "&sort=relevancy&free_consultation=1");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        List<WebElement> li = driver.findElement(By.cssSelector(".ruled-list.lawyer-search-results"))
+                .findElements(By.tagName("li"));
+        List<String> names = new ArrayList<>();
+        List<String> ratings = new ArrayList<>();
+        Set<String> href = new HashSet();
+        List<Map<String,String>> lawyerData= new ArrayList<>();
+        for (WebElement webElement : li) {
+            WebElement element = null;
+            WebElement ratingElement = null;
+            WebElement tagElement = null;
+            try{
+                element = webElement.findElement(By.cssSelector(".u-vertical-margin-0"));
+            }catch (NoSuchElementException e){
+                continue;
+            }
+            try {
+                ratingElement = webElement.findElement(By.tagName("strong"));
+            }catch (NoSuchElementException w){
+                continue;
+            }
+            try {
+                tagElement = webElement.findElement(By.tagName("a"));
+            }catch (NoSuchElementException w){
+                continue;
+            }
+            ratings.add(ratingElement.getText());
+            names.add(element.getText());
+            href.add(tagElement.getAttribute("href"));
+        }
+        ArrayList<String> list = new ArrayList<>(href);
+        for (int j = 0; j <= ratings.size() - 1; j++) {
+                Map<String,String> tempMap = new HashMap<>();
+                tempMap.put("Name",names.get(j));
+                tempMap.put("Rating",ratings.get(j));
+                tempMap.put("URL",list.get(j));
+                lawyerData.add(tempMap);
+        }
+        driver.quit();
+        System.out.println("========================================" + lawyerData);
+        return lawyerData;
+    }
+
+    public static void main(String[] args) {
+        BotService botService = new BotService();
+        botService.getLawyers("new york");
     }
 }
