@@ -34,6 +34,7 @@
                 <td class="col-lg-2">Description</td>
                 <td class="col-lg-1">Where</td>
                 <td class="col-lg-7">Issues</td>
+                <td class="col-lg-7">Volunteers</td>
                 </thead>
                 <tbody>
                 <tr ng-repeat="project in vm.myProjects">
@@ -41,6 +42,7 @@
                     <td>{{project.description}}</td>
                     <td>{{project.address}}</td>
                     <td>{{project.issue}}</td>
+                    <td><a ng-repeat="volunteer in project.volunteers" ng-href="mailto:volunteer.email">{{volunteer.login}}  </a></td>
                 </tr>
 
                 </tbody>

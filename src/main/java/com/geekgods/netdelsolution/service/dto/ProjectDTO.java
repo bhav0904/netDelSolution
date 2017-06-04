@@ -1,5 +1,7 @@
 package com.geekgods.netdelsolution.service.dto;
 
+import java.util.List;
+
 public class ProjectDTO {
     private String name;
     private String address;
@@ -7,6 +9,7 @@ public class ProjectDTO {
 
     private String description;
     private String createdBy;
+    private List<VolunteerDTO> volunteers;
 
     public ProjectDTO() {
     }
@@ -17,6 +20,15 @@ public class ProjectDTO {
         this.issue = issue;
         this.description = description;
         this.createdBy = createdBy;
+    }
+
+    public ProjectDTO(String name, String address, String issue, String description, String createdBy, List<VolunteerDTO> volunteers) {
+        this.name = name;
+        this.address = address;
+        this.issue = issue;
+        this.description = description;
+        this.createdBy = createdBy;
+        this.volunteers = volunteers;
     }
 
     public String getName() {
@@ -57,5 +69,13 @@ public class ProjectDTO {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public List<VolunteerDTO> getVolunteers() {
+        return volunteers;
+    }
+
+    public void setVolunteers(List<VolunteerDTO> volunteers) {
+        this.volunteers = volunteers;
     }
 }

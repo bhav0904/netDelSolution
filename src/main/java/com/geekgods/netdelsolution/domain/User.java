@@ -65,7 +65,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JoinTable(name = "user_project",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "project_id") })
-    private List<Project> projects;
+    private List<Project> projects = new ArrayList<>();
 
     @NotNull
     @Column(nullable = false)

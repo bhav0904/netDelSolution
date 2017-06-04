@@ -31,8 +31,8 @@ public class Project {
     @Column(name = "projectAddress")
     private String projectAddress;
 
-    @ManyToMany(mappedBy="projects")
-    private Set<User> volunteers;
+    @ManyToMany(mappedBy="projects", cascade = CascadeType.ALL)
+    private Set<User> volunteers = new HashSet<>();
 
     public Long getId() {
         return id;

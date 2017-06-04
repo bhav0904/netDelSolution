@@ -10,13 +10,13 @@ import com.geekgods.netdelsolution.repository.UserRepository;
 import com.geekgods.netdelsolution.service.BotService;
 import com.geekgods.netdelsolution.service.ProjectService;
 import com.geekgods.netdelsolution.service.dto.ProjectDTO;
+import com.geekgods.netdelsolution.service.dto.VolunteerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -48,6 +48,15 @@ public class ProjectResource {
         project.setProjectName(projectDTO.getName());
         project.setProjectAddress(projectDTO.getAddress());
         project.setProjectDescription(projectDTO.getDescription());
+
+        projectDTO.getVolunteers().forEach(volunteerDTO -> {
+            User volunteer = this.userRepository.findOneByLogin(volunteerDTO.getLogin()).orElseThrow(RuntimeException::new);
+            volunteer.getProjects().add(project);
+            project.getVolunteers().add(volunteer);
+        });
+
+
+
         this.projectRepository.save(project);
 
         this.projectService.sendNotificationsToVolunteers(project);
@@ -75,9 +84,15 @@ public class ProjectResource {
 
         if (createdBy != null) {
 
-            return ResponseEntity.ok(this.projectRepository.findAllByCreatedBy(createdBy).stream().map(project -> new ProjectDTO(project.getProjectName(), project.getProjectAddress(),
-                    ((ProjectIssue) project.getIssues().toArray()[0]).getIssue(),
-                    project.getProjectDescription(), project.getCreatedBy())).collect(Collectors.toList()));
+            return ResponseEntity.ok(this.projectRepository.findAllByCreatedBy(createdBy).stream().map(project -> {
+                List<VolunteerDTO> volunteers = project.getVolunteers().stream().map(user ->
+                        new VolunteerDTO(user.getLastName() + ", " + user.getFirstName(), user.getEmail(), user.getLogin()))
+                        .collect(Collectors.toList());
+                return new ProjectDTO(project.getProjectName(), project.getProjectAddress(),
+                        ((ProjectIssue) project.getIssues().toArray()[0]).getIssue(),
+                        project.getProjectDescription(), project.getCreatedBy(),
+                        volunteers);
+            }).collect(Collectors.toList()));
         }
 
         return ResponseEntity.ok(null);
