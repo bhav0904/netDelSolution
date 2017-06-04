@@ -2,6 +2,7 @@
 
 ## Development
 
+
 Before you can build this project, you must install and configure the following dependencies on your machine:
 
 1. [Node.js][]: We use Node to run a development web server and build the project.
@@ -29,6 +30,9 @@ specifying a newer version in [bower.json](bower.json). You can also run `bower 
 Add the `-h` flag on any command to see how you can use it. For example, `bower update -h`.
 
 For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
+
+You must also include your gmail id and password in the application.yml in order for the notifications to work.
+
 
 
 ## Building for production
