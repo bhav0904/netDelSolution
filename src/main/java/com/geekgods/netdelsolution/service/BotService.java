@@ -15,8 +15,11 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class BotService {
+
+    public static final String CHROMEDRIVER_LOC = "/Users/bhavanahindupur/Downloads/chromedriver";
+
     public static List<Map<String,String>> getresources(String searchString) {
-        System.setProperty("webdriver.chrome.driver", "/Users/bhavanahindupur/Downloads/chromedriver");
+        System.setProperty("webdriver.chrome.driver", CHROMEDRIVER_LOC);
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS) ;
         driver.get("https://joblink.delaware.gov/ada/services/schools/SchSearch.cfm");
@@ -64,8 +67,8 @@ public class BotService {
     }
 
 
-    public List<Map<String,String>> getLawyers(String city) {
-        System.setProperty("webdriver.chrome.driver", "/Users/gauravkhurana/Downloads/chromedriver 2");
+    public static List<Map<String,String>> getLawyers(String city) {
+        System.setProperty("webdriver.chrome.driver", CHROMEDRIVER_LOC);
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS) ;
         driver.get("https://www.avvo.com/search/lawyer_search?utf8=%E2%9C%93&q=General%20Practice&loc=" + city + "&sort=relevancy&free_consultation=1");
@@ -114,6 +117,22 @@ public class BotService {
         driver.quit();
         System.out.println("========================================" + lawyerData);
         return lawyerData;
+    }
+
+    public static String getLocation() {
+        System.setProperty("webdriver.chrome.driver", CHROMEDRIVER_LOC);
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.get("https://www.google.com");
+        driver.findElement(By.id("lst-ib")).sendKeys("My location");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String location = driver.findElement(By.cssSelector(".vk_sh.vk_bk")).getText();
+        driver.quit();
+        return location;
     }
 
     public static void main(String[] args) {
