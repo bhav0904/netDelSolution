@@ -22,6 +22,9 @@ public class Project {
     @Column(name = "projectName")
     private String projectName;
 
+    @Column(name = "createdBy")
+    private String createdBy;
+
     @Column(name = "projectDescription")
     private String projectDescription;
 
@@ -85,5 +88,13 @@ public class Project {
 
     public void setProjectDescription(String projectDescription) {
         this.projectDescription = projectDescription;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 }

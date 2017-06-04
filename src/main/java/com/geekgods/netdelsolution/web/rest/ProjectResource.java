@@ -42,6 +42,8 @@ public class ProjectResource {
         projectIssue.setIssue(projectDTO.getIssue());
         projectIssue.setProject(project);
         project.getIssues().add(projectIssue);
+        //TODO add security to createdBy
+        project.setCreatedBy(projectDTO.getCreatedBy());
 
         project.setProjectName(projectDTO.getName());
         project.setProjectAddress(projectDTO.getAddress());
@@ -56,17 +58,30 @@ public class ProjectResource {
 
     @GetMapping("/projects")
     @Timed
-    public ResponseEntity<List<ProjectDTO>> getProjects(@RequestParam String login) {
+    public ResponseEntity<List<ProjectDTO>> getProjects(@RequestParam(required = false) String login, @RequestParam(required = false) String createdBy) {
 
-        User user = this.userRepository.findOneByLogin(login).orElseThrow(() -> new RuntimeException("User not found"));
+        if (login != null) {
+            User user = this.userRepository.findOneByLogin(login).orElseThrow(() -> new RuntimeException("User not found"));
 
-        List<String> issuesUserIsInterestedIn = user.getIssues().stream().map(UserIssue::getIssue).collect(Collectors.toList());
+            List<String> issuesUserIsInterestedIn = user.getIssues().stream().map(UserIssue::getIssue).collect(Collectors.toList());
 
-        List<ProjectDTO> projects = this.projectRepository.findAll().stream().map(project -> new ProjectDTO(project.getProjectName(),
-                project.getProjectAddress(), ((ProjectIssue) project.getIssues().toArray()[0]).getIssue(),
-                project.getProjectDescription())).filter(projectDTO -> issuesUserIsInterestedIn.contains(projectDTO.getIssue())).collect(Collectors.toList());
+            List<ProjectDTO> projects = this.projectRepository.findAll().stream().map(project -> new ProjectDTO(project.getProjectName(),
+                    project.getProjectAddress(), ((ProjectIssue) project.getIssues().toArray()[0]).getIssue(),
+                    project.getProjectDescription(), project.getCreatedBy()))
+                    .filter(projectDTO -> issuesUserIsInterestedIn.contains(projectDTO.getIssue())).collect(Collectors.toList());
 
-        return ResponseEntity.ok(projects);
+            return ResponseEntity.ok(projects);
+        }
+
+        if (createdBy != null) {
+
+            return ResponseEntity.ok(this.projectRepository.findAllByCreatedBy(createdBy).stream().map(project -> new ProjectDTO(project.getProjectName(), project.getProjectAddress(),
+                    ((ProjectIssue) project.getIssues().toArray()[0]).getIssue(),
+                    project.getProjectDescription(), project.getCreatedBy())).collect(Collectors.toList()));
+        }
+
+        return ResponseEntity.ok(null);
+
     }
 
     @GetMapping("/location")

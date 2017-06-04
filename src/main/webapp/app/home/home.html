@@ -27,6 +27,27 @@
                 </form>
 
             </div>
+            <h4 ng-if="vm.myProjects && vm.myProjects.length > 0">My Projects</h4>
+            <table ng-if="vm.myProjects && vm.myProjects.length > 0" class="table table-hover table-striped">
+                <thead>
+                <td class="col-lg-2">Name</td>
+                <td class="col-lg-2">Description</td>
+                <td class="col-lg-1">Where</td>
+                <td class="col-lg-7">Issues</td>
+                </thead>
+                <tbody>
+                <tr ng-repeat="project in vm.myProjects">
+                    <td><a href="">{{project.name}}</a></td>
+                    <td>{{project.description}}</td>
+                    <td>{{project.address}}</td>
+                    <td>{{project.issue}}</td>
+                </tr>
+
+                </tbody>
+
+            </table>
+
+
             <div>
                 <table class="table table-hover table-striped">
                     <thead>Event or Organization name</thead>

@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Spring Data JPA repository for the User entity.
+ * Spring Data JPA repository for the Project entity.
  */
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
-
+    List<Project> findAllByCreatedBy(String createdBy);
 }

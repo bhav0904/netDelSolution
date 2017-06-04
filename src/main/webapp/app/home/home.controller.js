@@ -16,7 +16,13 @@
                     $http.get("/api/projects?login=" + login).then(function (response) {
                         vm.projects = response.data;
                     });
+
+                    $http.get("/api/projects?createdBy=" + login).then(function (response) {
+                                                        vm.myProjects = response.data;
+                                      });
         });
+
+
 
         this.searchLegal = function(city) {
 

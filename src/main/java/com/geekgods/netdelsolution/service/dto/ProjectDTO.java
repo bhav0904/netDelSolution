@@ -6,15 +6,17 @@ public class ProjectDTO {
     private String issue;
 
     private String description;
+    private String createdBy;
 
     public ProjectDTO() {
     }
 
-    public ProjectDTO(String name, String address, String issue, String description) {
+    public ProjectDTO(String name, String address, String issue, String description, String createdBy) {
         this.name = name;
         this.address = address;
         this.issue = issue;
         this.description = description;
+        this.createdBy = createdBy;
     }
 
     public String getName() {
@@ -47,5 +49,13 @@ public class ProjectDTO {
 
     public void setIssue(String issue) {
         this.issue = issue;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 }
