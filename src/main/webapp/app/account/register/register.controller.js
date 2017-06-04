@@ -6,9 +6,9 @@
         .controller('RegisterController', RegisterController);
 
 
-    RegisterController.$inject = [ '$timeout', 'Auth', 'LoginService'];
+    RegisterController.$inject = [ '$timeout', 'Auth', 'LoginService', '$http'];
 
-    function RegisterController ($timeout, Auth, LoginService) {
+    function RegisterController ($timeout, Auth, LoginService, $http) {
         var vm = this;
 
         vm.doNotMatch = null;
@@ -19,11 +19,20 @@
         vm.registerAccount = {};
         vm.success = null;
 
+        vm.locateMe = function() {
+            $http.get("/api/location").then(function (response) {
+                        vm.registerAccount.address = response.data.location;
+                    });
+        };
+
+
+
         //TODO: hardcoded to be removed
         vm.issues = ["Gun Safety", "Child Rights", "Marijuiana Reform"];
         $timeout(function (){angular.element('#login').focus();});
 
         function register () {
+            if (vm.registerAccount.issue) {
             if (vm.registerAccount.password !== vm.confirmPassword) {
                 vm.doNotMatch = 'ERROR';
             } else {
@@ -45,6 +54,7 @@
                         vm.error = 'ERROR';
                     }
                 });
+            }
             }
         }
     }

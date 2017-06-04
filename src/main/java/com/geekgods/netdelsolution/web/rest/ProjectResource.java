@@ -63,6 +63,6 @@ public class ProjectResource {
     @GetMapping("/location")
     @Timed
     public ResponseEntity<String> getLocation() {
-        return ResponseEntity.ok(BotService.getLocation());
+        return ResponseEntity.ok("{\"location\":\"" + BotService.getLocation() + "\"}");
     }
 }

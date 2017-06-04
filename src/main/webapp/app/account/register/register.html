@@ -73,11 +73,11 @@
                     </div>
                 </div>
                 <div class="form-group col-lg-1">
-                    <button class="btn btn-default"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>
+                    <button class="btn btn-default" ng-click="vm.locateMe()"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>
                 </div>
                 <div class="form-group col-lg-11">
 
-                    <input type="text" class="form-control" id="exampleInputAmount" ng-model="vm.registerAccount.address" placeholder="Address">
+                    <input type="text" class="form-control" name="address" id="exampleInputAmount" ng-model="vm.registerAccount.address" placeholder="Address">
 
                 </div>
                 <div class="typeahead-demo">
@@ -90,7 +90,7 @@
                     <!--</ul>-->
 
                     <div class="form-group">
-                        <input type="text" ng-model="vm.registerAccount.issue"
+                        <input type="text" name="issue" ng-model="vm.registerAccount.issue"
                                uib-typeahead="issue for issue in vm.issues" class="form-control" placeholder="type your interests here">
                     </div>
 
