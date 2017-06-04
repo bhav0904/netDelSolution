@@ -42,10 +42,12 @@ spring:
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
     mail:
-        host: localhost
-        port: 25
-        username:
+        host: smtp.gmail.com
+        port: 587
+        username: networkdela@gmail.com
         password:
+        smtp.auth: true
+        smtp.starttls.enable: true
     messages:
         cache-seconds: 1
     thymeleaf:

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import javax.mail.internet.MimeMessage;
 import java.util.Locale;
+import java.util.Properties;
 
 /**
  * Service for sending emails.
@@ -48,6 +50,12 @@ public class MailService {
         this.javaMailSender = javaMailSender;
         this.messageSource = messageSource;
         this.templateEngine = templateEngine;
+
+
+        //TODO move these properties to yml
+        Properties props = ((JavaMailSenderImpl)javaMailSender).getJavaMailProperties();
+        props.setProperty("mail.smtp.starttls.enable", "true");
+        props.setProperty("mail.smtp.auth", "true");
     }
 
     @Async

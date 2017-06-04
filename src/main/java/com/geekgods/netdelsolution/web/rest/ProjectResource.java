@@ -8,6 +8,7 @@ import com.geekgods.netdelsolution.domain.UserIssue;
 import com.geekgods.netdelsolution.repository.ProjectRepository;
 import com.geekgods.netdelsolution.repository.UserRepository;
 import com.geekgods.netdelsolution.service.BotService;
+import com.geekgods.netdelsolution.service.ProjectService;
 import com.geekgods.netdelsolution.service.dto.ProjectDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +30,13 @@ public class ProjectResource {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ProjectService projectService;
+
     @PostMapping("/projects")
     @Timed
     public ResponseEntity<String> saveProject(@RequestBody ProjectDTO projectDTO) {
+        //TODO move this business logic to the service layer
         Project project = new Project();
         ProjectIssue projectIssue = new ProjectIssue();
         projectIssue.setIssue(projectDTO.getIssue());
@@ -42,6 +47,10 @@ public class ProjectResource {
         project.setProjectAddress(projectDTO.getAddress());
         project.setProjectDescription(projectDTO.getDescription());
         this.projectRepository.save(project);
+
+        this.projectService.sendNotificationsToVolunteers(project);
+
+
         return ResponseEntity.ok("Success");
     }
 
